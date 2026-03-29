@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مخترعون غيّروا التاريخ</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Tajawal',sans-serif;background:#F5F3FF;min-height:100vh;padding:1.5rem 1rem 3rem;}
+#wrap{max-width:600px;margin:0 auto;direction:rtl;}
+.fun-stripe{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;font-size:22px;margin-bottom:0.75rem;}
+.header-box{background:linear-gradient(135deg,#7C3AED,#4F46E5);border-radius:20px;padding:1.1rem 1.25rem;text-align:center;margin-bottom:0.75rem;position:relative;overflow:hidden;}
+.header-box::before{content:'🔬🚀💡✈️📡';font-size:13px;position:absolute;top:6px;left:8px;opacity:0.35;letter-spacing:2px;}
+.header-title{color:#fff;font-size:22px;font-weight:900;}
+.header-sub{color:#C4B5FD;font-size:14px;margin-top:3px;}
+.login-card{background:#fff;border:3px solid #A78BFA;border-radius:24px;padding:2rem 1.5rem;text-align:center;}
+.login-icon{font-size:68px;margin-bottom:0.5rem;}
+.login-title{font-size:22px;font-weight:900;color:#1E1B4B;margin-bottom:0.25rem;}
+.login-sub{font-size:14px;color:#6D28D9;margin-bottom:1.5rem;}
+.field-label{font-size:14px;font-weight:700;color:#4C1D95;text-align:right;margin-bottom:6px;display:block;}
+.field-input{width:100%;padding:0.8rem 1rem;border:2px solid #A78BFA;border-radius:14px;font-size:15px;font-family:'Tajawal',sans-serif;color:#1E1B4B;background:#F5F3FF;margin-bottom:1rem;outline:none;text-align:right;}
+.field-input:focus{border-color:#7C3AED;background:#EDE9FE;}
+.start-btn{width:100%;padding:0.95rem;border:none;border-radius:16px;background:linear-gradient(135deg,#7C3AED,#4F46E5);color:#fff;font-size:18px;font-weight:900;font-family:'Tajawal',sans-serif;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,0.35);transition:transform 0.1s;margin-top:0.5rem;}
+.start-btn:hover{transform:translateY(-2px);}
+.error-msg{color:#DC2626;font-size:13px;font-weight:700;margin-top:-0.5rem;margin-bottom:0.75rem;display:none;}
+.error-msg.show{display:block;}
+.student-tag{background:#FEF3C7;border:2px solid #F59E0B;border-radius:99px;padding:5px 16px;font-size:13px;font-weight:700;color:#92400E;text-align:center;margin-bottom:0.75rem;}
+.progress-row{display:flex;align-items:center;gap:8px;margin-bottom:0.75rem;}
+.progress-bg{flex:1;background:#E9D5FF;border-radius:99px;height:14px;overflow:hidden;}
+.progress-fill{height:14px;border-radius:99px;background:linear-gradient(90deg,#F59E0B,#EF4444);transition:width 0.5s ease;}
+.q-num{font-size:13px;font-weight:700;color:#7C3AED;white-space:nowrap;}
+.score-badge{background:#FEF3C7;border:2px solid #F59E0B;border-radius:99px;padding:4px 14px;font-size:14px;font-weight:700;color:#92400E;white-space:nowrap;}
+.q-card{background:#fff;border:3px solid #A78BFA;border-radius:24px;padding:1.5rem;margin-bottom:0.75rem;}
+.figure-icon{font-size:60px;text-align:center;margin-bottom:0.5rem;}
+.figure-name{font-size:13px;font-weight:700;color:#6D28D9;background:#EDE9FE;border-radius:99px;padding:3px 16px;display:inline-block;}
+.name-row{text-align:center;margin-bottom:0.75rem;}
+.q-text{font-size:18px;font-weight:700;color:#1E1B4B;text-align:center;line-height:1.65;margin-bottom:1.1rem;}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.opt-btn{border-radius:16px;padding:0.85rem 0.6rem;font-size:15px;font-weight:700;cursor:pointer;text-align:center;transition:transform 0.1s,box-shadow 0.1s;border:3px solid transparent;line-height:1.4;font-family:'Tajawal',sans-serif;}
+.opt-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.12);}
+.opt-A{background:#DBEAFE;color:#1E40AF;border-color:#93C5FD;}
+.opt-B{background:#FEF3C7;color:#92400E;border-color:#FCD34D;}
+.opt-C{background:#D1FAE5;color:#065F46;border-color:#6EE7B7;}
+.opt-D{background:#FCE7F3;color:#9D174D;border-color:#F9A8D4;}
+.opt-btn.correct{background:#D1FAE5!important;border-color:#10B981!important;color:#065F46!important;transform:scale(1.04);box-shadow:0 0 0 4px #A7F3D0;}
+.opt-btn.wrong{background:#FEE2E2!important;border-color:#EF4444!important;color:#7F1D1D!important;}
+.opt-btn:disabled{cursor:default;opacity:0.85;}
+.feedback{margin-top:0.9rem;padding:0.85rem 1rem;border-radius:16px;font-size:14px;font-weight:700;line-height:1.65;display:none;}
+.feedback.show{display:block;}
+.feedback.correct{background:#D1FAE5;color:#065F46;border:2px solid #6EE7B7;}
+.feedback.wrong{background:#FEE2E2;color:#7F1D1D;border:2px solid #FCA5A5;}
+.next-btn{width:100%;margin-top:0.85rem;padding:0.9rem;border:none;border-radius:16px;background:linear-gradient(135deg,#7C3AED,#4F46E5);color:#fff;font-size:17px;font-weight:900;font-family:'Tajawal',sans-serif;cursor:pointer;display:none;transition:transform 0.1s;box-shadow:0 4px 16px rgba(124,58,237,0.35);}
+.next-btn.show{display:block;}
+.next-btn:hover{transform:translateY(-2px);}
+.result-wrap{text-align:center;padding:1rem 0.5rem;}
+.result-student-name{font-size:15px;font-weight:700;color:#6D28D9;background:#EDE9FE;border-radius:99px;padding:6px 20px;display:inline-block;margin-bottom:1rem;}
+.result-big-icon{font-size:76px;margin-bottom:0.5rem;}
+.result-banner{background:linear-gradient(135deg,#7C3AED,#4F46E5);border-radius:20px;padding:1.25rem;margin-bottom:1rem;}
+.result-score-text{font-size:46px;font-weight:900;color:#fff;}
+.result-of{font-size:18px;color:#C4B5FD;}
+.result-msg{font-size:18px;font-weight:700;color:#fff;margin-top:0.4rem;}
+.stars-result{font-size:30px;letter-spacing:4px;margin:0.75rem 0;}
+.medals-row{display:flex;justify-content:center;gap:10px;margin-bottom:1rem;flex-wrap:wrap;}
+.medal{background:#FEF3C7;border:2px solid #F59E0B;border-radius:16px;padding:6px 14px;font-size:13px;font-weight:700;color:#92400E;}
+.submit-section{background:#F0FDF4;border:2px solid #6EE7B7;border-radius:20px;padding:1.25rem;margin-bottom:1rem;}
+.submit-title{font-size:16px;font-weight:900;color:#065F46;margin-bottom:0.4rem;}
+.submit-sub{font-size:13px;color:#047857;margin-bottom:1rem;line-height:1.6;}
+.prefilled-row{background:#fff;border:1.5px solid #A7F3D0;border-radius:12px;padding:8px 14px;font-size:13px;font-weight:700;color:#065F46;margin-bottom:8px;text-align:right;}
+.send-form-btn{display:block;width:100%;padding:0.9rem;border:none;border-radius:16px;background:linear-gradient(135deg,#10B981,#059669);color:#fff;font-size:17px;font-weight:900;font-family:'Tajawal',sans-serif;cursor:pointer;box-shadow:0 4px 16px rgba(16,185,129,0.35);transition:transform 0.1s;text-decoration:none;text-align:center;}
+.send-form-btn:hover{transform:translateY(-2px);}
+.sent-note{margin-top:10px;font-size:13px;color:#065F46;font-weight:700;background:#D1FAE5;border-radius:10px;padding:8px 12px;display:none;}
+.btns-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:0.75rem;}
+.restart-btn{background:linear-gradient(135deg,#F59E0B,#EF4444);color:#fff;border:none;border-radius:16px;padding:0.85rem 1.75rem;font-size:15px;font-weight:900;font-family:'Tajawal',sans-serif;cursor:pointer;}
+.new-student-btn{background:linear-gradient(135deg,#7C3AED,#4F46E5);color:#fff;border:none;border-radius:16px;padding:0.85rem 1.75rem;font-size:15px;font-weight:900;font-family:'Tajawal',sans-serif;cursor:pointer;}
+</style>
+</head>
+<body>
+<div id="wrap">
+
+  <div id="login-section">
+    <div class="fun-stripe">🌟⚡🔬💡✈️📡🧬🚗🖨️☎️</div>
+    <div class="header-box">
+      <div class="header-title">🏆 مخترعون غيّروا التاريخ!</div>
+      <div class="header-sub">للمرحلة الابتدائية — هل أنتِ جاهزة؟ 🚀</div>
+    </div>
+    <div class="login-card">
+      <div class="login-icon">🎓</div>
+      <div class="login-title">مرحباً بكِ في اللعبة!</div>
+      <div class="login-sub">أدخلي بياناتك قبل البدء 👇</div>
+      <label class="field-label">👤 اسم الطالبة</label>
+      <input class="field-input" id="student-name" type="text" placeholder="اكتبي اسمك هنا..." maxlength="40">
+      <label class="field-label">🏫 الصف مع الفرقة</label>
+      <input class="field-input" id="student-class" type="text" placeholder="مثال: الرابع ب..." maxlength="40">
+      <div class="error-msg" id="error-msg">⚠️ الرجاء كتابة الاسم والصف أولاً!</div>
+      <button class="start-btn" onclick="startGame()">ابدأي اللعبة 🚀</button>
+    </div>
+  </div>
+
+  <div id="game-section" style="display:none;">
+    <div class="fun-stripe">🌟⚡🔬💡✈️📡🧬🚗🖨️☎️</div>
+    <div class="header-box">
+      <div class="header-title">🏆 مخترعون غيّروا التاريخ!</div>
+      <div class="header-sub">للمرحلة الابتدائية — هل أنتِ جاهزة؟ 🚀</div>
+    </div>
+    <div class="student-tag" id="student-tag"></div>
+    <div class="progress-row">
+      <span class="q-num" id="q-num">1 / 10</span>
+      <div class="progress-bg"><div class="progress-fill" id="prog" style="width:10%"></div></div>
+      <span class="score-badge" id="score-badge">⭐ 0</span>
+    </div>
+    <div class="q-card" id="q-card">
+      <div class="figure-icon" id="fig-icon"></div>
+      <div class="name-row"><span class="figure-name" id="fig-hint"></span></div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options-grid" id="options"></div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+    <button class="next-btn" id="next-btn">التالي ←</button>
+  </div>
+
+</div>
+<script>
+const FORM_ID    = '1FAIpQLSeGbsotWFfQr8SWXRYcn3ZrtmjCzECuCNesn4OG3VhII7xCWA';
+const ENTRY_NAME  = 'entry.706857412';
+const ENTRY_CLASS = 'entry.1765517686';
+const ENTRY_SCORE = 'entry.1143663094';
+
+const questions=[
+  {icon:"💡",hint:"مخترع أمريكي عبقري",question:"من اخترع المصباح الكهربائي الذي ينير بيوتنا؟",options:["نيكولا تيسلا","توماس إيديسون","غراهام بيل","بنجامين فرانكلين"],answer:1,fact:"🌟 توماس إيديسون أجرى أكثر من 1000 تجربة قبل أن ينجح في اختراع المصباح عام 1879!"},
+  {icon:"📞",hint:"عالم اسكتلندي موهوب",question:"من اخترع الهاتف الذي نتحدث به مع أصدقائنا؟",options:["غوليلمو ماركوني","توماس إيديسون","ألكسندر غراهام بيل","نيكولا تيسلا"],answer:2,fact:"📞 أول جملة قالها غراهام بيل عبر الهاتف: 'يا سيد واتسون، تعال إليّ!' عام 1876."},
+  {icon:"✈️",hint:"أخوان أمريكيان شجاعان",question:"من اخترعا الطائرة وحلّقا في السماء لأول مرة؟",options:["هنري فورد","الأخوان رايت","لويس بليريو","تشارلز ليندبرغ"],answer:1,fact:"✈️ طارت أول طائرة في التاريخ لمدة 12 ثانية فقط! لكنها فتحت باب السماء للبشرية عام 1903."},
+  {icon:"🔭",hint:"عالم إيطالي فضولي",question:"من طوّر التلسكوب ونظر به إلى النجوم والكواكب؟",options:["كوبرنيكوس","كيبلر","غاليليو غاليلي","إسحاق نيوتن"],answer:2,fact:"🔭 اكتشف غاليليو بتلسكوبه أقمار كوكب المشتري الأربعة — وهو أول إنسان يراها!"},
+  {icon:"💊",hint:"طبيب بريطاني ملاحظ",question:"من اكتشف البنسلين الذي يعالج الأمراض الخطيرة؟",options:["لويس باستور","ألكسندر فليمنج","روبرت كوخ","ماري كوري"],answer:1,fact:"💊 اكتشف فليمنج البنسلين بالصدفة عام 1928 عندما لاحظ أن عفناً يقتل الجراثيم!"},
+  {icon:"⚡",hint:"عالم صربي عبقري",question:"من اخترع نظام الكهرباء الذي يصل إلى منازلنا؟",options:["توماس إيديسون","نيكولا تيسلا","جورج ويستينغهاوس","مايكل فاراداي"],answer:1,fact:"⚡ نيكولا تيسلا اخترع التيار المتردد الذي يُستخدم في كل منازل العالم حتى اليوم!"},
+  {icon:"🖨️",hint:"مخترع ألماني عظيم",question:"من اخترع آلة الطباعة التي نطبع بها الكتب؟",options:["ليوناردو دافنشي","يوهانس غوتنبرغ","فرانسيس بيكون","روجر بيكون"],answer:1,fact:"📚 قبل غوتنبرغ كان كل كتاب يُنسخ باليد! اختراعه عام 1440 جعل الكتب في متناول الجميع."},
+  {icon:"🚗",hint:"مهندس ألماني مبدع",question:"من اخترع السيارة التي تسير بالمحرك؟",options:["هنري فورد","رودولف ديزل","كارل بنز","نيكولاس كوينيو"],answer:2,fact:"🚗 سيارة كارل بنز الأولى عام 1885 كانت تسير بسرعة 16 كيلومتراً في الساعة فقط!"},
+  {icon:"📡",hint:"مخترع إيطالي رائد",question:"من اخترع الراديو وأرسل موجاته عبر البحار؟",options:["نيكولا تيسلا","هاينريش هرتز","غوليلمو ماركوني","ألكسندر بوبوف"],answer:2,fact:"📡 أرسل ماركوني عام 1901 أول إشارة راديو عبر المحيط الأطلسي من بريطانيا إلى كندا!"},
+  {icon:"🧬",hint:"علماء أحياء رائعون",question:"من اكتشفا شكل الـ DNA الذي يحمل صفاتنا الوراثية؟",options:["مندل وداروين","واتسون وكريك","فرانكلين وويلكينز","بولينغ وكوري"],answer:1,fact:"🧬 اكتشف واتسون وكريك عام 1953 أن شكل DNA يشبه السلّم الملتوي — غيّر علم الأحياء للأبد!"}
+];
+
+let cur=0,score=0,answered=false,studentName='',studentClass='';
+const colors=['opt-A','opt-B','opt-C','opt-D'];
+
+function buildFormURL(name,grade,sc){
+  return `https://docs.google.com/forms/d/e/${FORM_ID}/viewform?usp=pp_url`
+    +`&${ENTRY_NAME}=${encodeURIComponent(name)}`
+    +`&${ENTRY_CLASS}=${encodeURIComponent(grade)}`
+    +`&${ENTRY_SCORE}=${encodeURIComponent(sc)}`;
+}
+
+function startGame(){
+  studentName=document.getElementById('student-name').value.trim();
+  studentClass=document.getElementById('student-class').value.trim();
+  if(!studentName||!studentClass){document.getElementById('error-msg').className='error-msg show';return;}
+  document.getElementById('error-msg').className='error-msg';
+  document.getElementById('login-section').style.display='none';
+  document.getElementById('game-section').style.display='block';
+  document.getElementById('student-tag').textContent=`👤 ${studentName}  •  🏫 ${studentClass}`;
+  cur=0;score=0;render();
+}
+
+function render(){
+  const q=questions[cur];
+  document.getElementById('q-num').textContent=`${cur+1} / 10`;
+  document.getElementById('score-badge').textContent=`⭐ ${score}`;
+  document.getElementById('prog').style.width=`${((cur+1)/10)*100}%`;
+  document.getElementById('fig-icon').textContent=q.icon;
+  document.getElementById('fig-hint').textContent=q.hint;
+  document.getElementById('q-text').textContent=q.question;
+  const opts=document.getElementById('options');
+  opts.innerHTML='';
+  q.options.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className=`opt-btn ${colors[i]}`;
+    b.textContent=o;b.onclick=()=>pick(i);
+    opts.appendChild(b);
+  });
+  document.getElementById('feedback').className='feedback';
+  document.getElementById('next-btn').className='next-btn';
+  answered=false;
+}
+
+function pick(idx){
+  if(answered)return;
+  answered=true;
+  const q=questions[cur];
+  const btns=document.querySelectorAll('.opt-btn');
+  btns.forEach(b=>b.disabled=true);
+  btns[q.answer].classList.add('correct');
+  const fb=document.getElementById('feedback');
+  if(idx===q.answer){
+    score++;
+    document.getElementById('score-badge').textContent=`⭐ ${score}`;
+    fb.className='feedback correct show';
+    fb.innerHTML='✅ أحسنتِ! إجابة رائعة!<br>'+q.fact;
+  }else{
+    btns[idx].classList.add('wrong');
+    fb.className='feedback wrong show';
+    fb.innerHTML='❌ حاولي مرة أخرى المرة القادمة!<br>'+q.fact;
+  }
+  const nb=document.getElementById('next-btn');
+  nb.className='next-btn show';
+  nb.textContent=cur<9?'السؤال التالي ⟵':'اعرفي نتيجتك 🏆';
+}
+
+document.getElementById('next-btn').onclick=()=>{cur++;if(cur<10){render();}else{showResult();}};
+
+function showResult(){
+  const pct=score/10;
+  let icon,msg,stars,medals=[];
+  if(pct===1){icon='🥇';msg='مثالي! أنتِ عبقرية حقاً!';stars='⭐⭐⭐⭐⭐';medals=['🏆 بطلة المخترعين','🎓 نجمة المرحلة الابتدائية'];}
+  else if(pct>=0.8){icon='🥈';msg='ممتاز! أداء رائع جداً!';stars='⭐⭐⭐⭐';medals=['🌟 موهوبة جداً','👏 إبداع حقيقي'];}
+  else if(pct>=0.6){icon='🥉';msg='جيد جداً! استمري في التعلم!';stars='⭐⭐⭐';medals=['📚 متعلمة نشيطة'];}
+  else if(pct>=0.4){icon='💪';msg='جيد! التدريب يصنع البطلة!';stars='⭐⭐';medals=['🌱 في طريق النجاح'];}
+  else{icon='📖';msg='لا تستسلمي! العلم يحتاج صبراً!';stars='⭐';medals=['🚀 بداية رحلة التعلم'];}
+
+  const formURL=buildFormURL(studentName,studentClass,score);
+  const card=document.getElementById('q-card');
+  card.innerHTML=`
+    <div class="result-wrap">
+      <div class="result-student-name">👤 ${studentName}  •  🏫 ${studentClass}</div>
+      <div class="result-big-icon">${icon}</div>
+      <div class="result-banner">
+        <div class="result-score-text">${score} <span class="result-of">من 10</span></div>
+        <div class="result-msg">${msg}</div>
+      </div>
+      <div class="stars-result">${stars}</div>
+      <div class="medals-row">${medals.map(m=>`<span class="medal">${m}</span>`).join('')}</div>
+      <div class="submit-section">
+        <div class="submit-title">📤 أرسلي نتيجتك للمعلمة!</div>
+        <div class="submit-sub">بياناتك جاهزة تلقائياً — اضغطي الزر ثم اضغطي "إرسال" في النموذج.</div>
+        <div class="prefilled-row">👤 ${studentName}</div>
+        <div class="prefilled-row">🏫 ${studentClass}</div>
+        <div class="prefilled-row">⭐ النتيجة: ${score} من 10</div>
+        <a class="send-form-btn" href="${formURL}" target="_blank" onclick="showSentNote()">📨 أرسلي نتيجتك الآن!</a>
+        <div class="sent-note" id="sent-note">✅ رائع! سيفتح النموذج في نافذة جديدة — اضغطي "إرسال" لتأكيد وصول نتيجتك للمعلمة 🎉</div>
+      </div>
+      <div class="btns-row">
+        <button class="restart-btn" onclick="restartSame()">🔄 العبي مجدداً</button>
+        <button class="new-student-btn" onclick="newStudent()">👤 طالبة جديدة</button>
+      </div>
+    </div>`;
+  document.getElementById('next-btn').className='next-btn';
+  document.getElementById('q-num').textContent='انتهت اللعبة! 🎉';
+  document.getElementById('prog').style.width='100%';
+}
+
+function showSentNote(){
+  setTimeout(()=>{const n=document.getElementById('sent-note');if(n)n.style.display='block';},400);
+}
+
+function restartSame(){
+  cur=0;score=0;
+  document.getElementById('q-card').innerHTML=`<div class="figure-icon" id="fig-icon"></div><div class="name-row"><span class="figure-name" id="fig-hint"></span></div><div class="q-text" id="q-text"></div><div class="options-grid" id="options"></div><div class="feedback" id="feedback"></div>`;
+  document.getElementById('next-btn').onclick=()=>{cur++;if(cur<10){render();}else{showResult();}};
+  render();
+}
+
+function newStudent(){
+  cur=0;score=0;studentName='';studentClass='';
+  document.getElementById('student-name').value='';
+  document.getElementById('student-class').value='';
+  document.getElementById('q-card').innerHTML=`<div class="figure-icon" id="fig-icon"></div><div class="name-row"><span class="figure-name" id="fig-hint"></span></div><div class="q-text" id="q-text"></div><div class="options-grid" id="options"></div><div class="feedback" id="feedback"></div>`;
+  document.getElementById('next-btn').onclick=()=>{cur++;if(cur<10){render();}else{showResult();}};
+  document.getElementById('next-btn').className='next-btn';
+  document.getElementById('game-section').style.display='none';
+  document.getElementById('login-section').style.display='block';
+}
+</script>
+</body>
+</html>
